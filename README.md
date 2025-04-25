@@ -94,8 +94,296 @@ During the initial review, the focus was placed on:
 ### Data Exploration and Key Insights
 This analysis aims to use applicant data such as income, employment status, credit history, and loan amount to build a robust credit risk model. Using Microsoft SQL Server, we explored and transformed the data by writing optimized SQL queries. This process helped clean the raw data, identify key risk indicators, and segment applicants by their likelihood of default. While no machine learning was used, rule-based logic and calculated risk factors were applied to create customer profiles that aid in credit decision-making. This approach highlights SQL’s effectiveness in generating actionable insights without the need for advanced modeling tools.
 
-📊 Demographic Analysis
+### 📊 Demographic Analysis
+
 - What is the age distribution of loan applicants?
-  ![Image Alt Text]()
+
+  ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Age.PNG)
+
+#### Analysis: 
+  The majority of loan applicants are Adults, making up the largest group with 14,695 applicants. This is followed by Youths, who account for 4,501 applicants. Elderly 
+  applicants are the least represented, with just 804.
+
+#### 🔍 Key Insight:
+  Most loans are applied for by adults, indicating that the primary demand for credit comes from individuals likely in their working and financially active years.
+
+
+  - What is the income distribution of loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income.PNG)
+
+#### Analysis: 
+Most loan applicants fall under the Low-Income category, with 12,681 applications. The medium-income group follows, accounting for 6,584 applicants. Meanwhile, only 735 applications came from individuals in the High-Income category.
+
+#### 🔍 Key Insight:
+The majority of people seeking loans are from lower-income brackets. This suggests that lower-income individuals may rely more on loans to meet financial needs or bridge income gaps.
+
+
+- What is the education level distribution of loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Education.PNG)
+
+#### Analysis: 
+The largest group of loan applicants hold a Bachelor’s degree (6,054), closely followed by those with a High School education (5,908). Associate degree holders make up 4,034 applicants. Fewer applicants hold Master’s degrees (3,050), and only 954 have a Doctorate.
+
+#### 🔍 Key Insight:
+Most loan applicants have mid-level education (Bachelor’s or High School), suggesting that individuals in this group may be at a life or career stage where financial support is more frequently needed.
+
+
+- What is the marital status distribution of loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Marital%20Status.PNG)
+
+#### Analysis: 
+Most loan applicants are Married, with 10,041 applications. Single individuals follow with 6,078 applicants, while Divorced and Widowed applicants account for 2,882 and 999 respectively.
+
+#### 🔍 Key Insight:
+The majority of loan applicants are married, which may indicate higher financial responsibilities such as family upkeep, housing, or joint investments. This group might be more inclined to seek financial support through loans to manage these obligations.
+
+
+### 💳 Creditworthiness Analysis
+
+- What is the distribution of credit scores among loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20score.PNG)
+
+#### Analysis: 
+Most loan applicants have a Low Credit Score, with 10,201 applications. This is followed closely by 9,742 applicants with a Fair Credit Score. Only 57 applicants fall into the Good Credit Score category.
+
+#### 🔍 Key Insight:
+A large majority of loan seekers have poor or average credit scores, indicating higher credit risk. This could suggest that individuals with stronger credit profiles may have access to alternative financing or may be more cautious about taking loans.
+
+- How does credit score relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20Score%20per.PNG)
+
+#### Analysis: 
+The chart indicates that among the loans that were approved, 60% were granted to applicants with a Good credit score. Applicants with a Fair credit score constituted 29% of the approvals, while those with a Low credit score made up the remaining 19%.
+
+#### 🔍 Key Insight: There is a clear positive relationship between credit score and loan approval. Applicants with higher credit scores (Good) represent the vast majority of approved loans, strongly suggesting that a better credit history significantly increases the chances of getting a loan approved.
+
+- What is the average credit utilization rate among loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20creditcard.PNG)
+
+#### Analysis: The majority of loan applicants (11,324) have Low credit utilization, indicating they use a small portion of their available credit. Moderate credit utilization follows with 6,586 applicants. Only 2,090 applicants fall into the High credit utilization category.
+
+#### 🔍 Key Insight:
+Most applicants maintain low credit usage, which may reflect good credit management habits. This is often viewed positively by lenders, as it suggests lower financial stress and reduced risk of overborrowing.
+
+- How does credit utilization rate relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20Score%20%25.PNG)
+
+
+#### Analysis: 
+Low credit utilization applicants had the highest loan approval rate at 0.24. Moderate and High credit utilization applicants both had slightly lower approval rates of 0.23
+
+#### 🔍 Key Insight:
+Applicants with low credit utilization are slightly more likely to be approved for loans. This suggests that lenders may view lower credit usage as a sign of responsible borrowing and better financial stability, even if the difference is small.
+
+### 💼 Employment and Income Analysis
+
+- What is the employment status distribution of loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Employment%20S.PNG)
+
+#### Analysis: 
+The vast majority of applicants are Employed (17,036). Self-employed individuals make up 1,573 applicants. The smallest group is the Unemployed, with 1,391 applicants.
+
+#### 🔍 Key Insight:
+Most loan applicants are actively employed, which could indicate a higher likelihood of income stability a key factor lenders consider during the loan approval process.
+
+- How does employment status relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Empolyment%20S%20Dis.PNG)
+
+#### Analysis: 
+Self-employed applicants had the highest approval rate at 0.28 (40% of all approved loans). Employed applicants followed with an approval rate of 0.24 (34% of approved loans). Unemployed applicants had the lowest approval rate at 0.18 (26% of approved loans).
+
+#### 🔍 Key Insight:
+Although fewer in number, self-employed applicants had the best chance of loan approval, possibly due to stronger financial profiles or business income. Unemployed individuals were least likely to be approved, which aligns with expected risk assessments by lenders.
+
+
+- What is the average income of loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Annual%20Income.PNG)
+
+
+- How does income relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income%20Relate.PNG)
+
+
+#### Analysis: 
+High-Income applicants had the highest approval rate at 0.95, with 697 loans approved. Low-Income applicants saw 3,234 loans approved, with a moderate approval rate of 0.49. Medium-income applicants had 849 loans approved but with a very low approval rate of 0.07, despite having more applicants.
+
+#### 🔍 Key Insight: 
+Although medium-income earners made up a large share of applicants, their loan approval rate was surprisingly low. This may be due to
+- Higher debt-to-income ratios or financial responsibilities,
+- Requesting larger loan amounts without matching credit strength,
+- Or being squeezed out by loan policies favoring either high or low-income applicants.
+- Lenders might see them as a riskier middle group — not poor enough for micro-loans, and not wealthy enough to guarantee repayment — resulting in lower approval chances.
+
+## 💰 Loan Characteristics Analysis
+
+- What is the distribution of loan amounts among loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income%20Cat%20Approve.PNG)
+
+#### Analysis:
+Small Loan Amounts 18,959 applicants. Medium Loan Amounts: 1,031 applicants. High Loan Amounts: 10 applicants
+
+#### 🔍 Key Insight:
+Most applicants are requesting small loan amounts, likely because they’re easier to qualify for and quicker to repay. Only a very small number applied for high loan amounts, possibly due to stricter requirements or fewer people needing large sums.
+
+
+- How does loan amount relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Loan%20Approve%20R.PNG)
+
+#### Analysis: 
+Loan approval rates drop as the loan amount increases. Small loan amounts have the highest approval rate at 0.25, followed by medium loan amounts at 0.03. High loan amounts had a 0% approval rate.
+
+#### 🔍 Key Insight:
+Applicants requesting smaller loan amounts are more likely to get approved, likely due to lower risk for lenders. As the loan amount increases, approval becomes less likely especially for high loan amounts, where the risk may outweigh the applicant’s creditworthiness or financial profile.
+
+
+- How does loan duration relate to loan approval?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Duration%20Of%20Loan.PNG)
+
+#### Analysis:
+Loan approvals are most common for 3-month durations with 3,733 approvals, followed by 1-month durations with 780 approvals. 6-month duration loans had the lowest approvals at 267
+
+#### 🔍 Key Insight: Loan approvals are most common for 3-month durations, making them the most favored by lenders — likely due to their balanced risk and repayment period.
+Short-term (1-month) loans are also commonly approved, while 6-month loans have the lowest approval count, suggesting that longer durations may be seen as higher risk.
+
+## 📅 Payment History Analysis
+
+- What is the distribution of payment history among loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Payment%20Dis.PNG)
+
+#### Analysis: 
+The majority of loan applicants (15,339) have a Fair payment history, indicating a mix of timely and late payments. Poor payment history is the next most common, with 3,679 applicants, reflecting a pattern of frequent missed or late payments. Only 982 applicants have a Good payment history, suggesting a smaller portion of borrowers have consistently met their repayment obligations.
+
+#### 🔍 Key Insight:
+Most applicants fall into the Fair or Poor categories, which may indicate broader challenges in credit discipline. The low number of applicants with good payment records highlights a potential risk factor for lenders and emphasizes the importance of promoting better repayment habits.
+
+
+- How does payment history relate to loan approval?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Pament%20History.PNG)
+
+#### Analysis:
+Applicants with a Good Payment History had the highest loan approval rate at 0.27, and they make up 37% of the total applicants. Those with a Fair Payment History had a slightly lower approval rate of 0.24, representing 33% of applicants. Poor Payment History applicants, who make up 30%, had the lowest approval rate at 0.22.
+
+#### 🔍 Key Insight:
+There’s a clear positive relationship between strong payment history and loan approval. Lenders tend to favor applicants with reliable repayment behavior, while those with poor histories face reduced chances, highlighting the importance of financial discipline in credit evaluations.
+
+
+- What is the average monthly debt payment among loan applicants?
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Debt%20payment.PNG)
+
+- How does monthly debt payment relate to loan approval?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Month%20DBT.PNG)
+
+
+
+## ⚠️ Risk Assessment Analysis
+
+- What is the distribution of risk scores among loan applicants?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20score%20app.PNG)
+
+
+- How does risk score relate to loan approval?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20Score%20Dis.PNG)
+
+
+- What is the average debt-to-income ratio among loan applicants?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/avg%20DTI.PNG)
+
+
+- How does debt-to-income ratio relate to loan approval?
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/DTI.PNG)
+
+
+## 5. Share
+
+### Business Impact: 
+Using SQL-driven insights to assess credit risk provides institutions with an immediate and scalable solution. By analyzing applicant data at scale and surfacing key risk signals directly from the database, decision-makers can more confidently approve or deny credit requests with clarity and consistency.
+
+This project equips financial institutions with a practical framework for identifying high-risk applicants early, minimizing potential defaults, and improving overall portfolio quality.
+
+In this Share phase, query results were exported to Excel, where insights were visualized using bar charts and funnel chart to highlight applicant demography, loan and income Break down category, pie and doughnut charts to show Distribution and rate(such as loan purposes or approval outcomes), and These visuals helped stakeholders quickly grasp key patterns and make informed decisions backed by data.
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20Excel%20dashboard.png)
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Empolyment%20Exc%20Dash.png)
+
+![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Payment%20Excel%20Dash.png)
+
+
+
+## 6. ACT
+### Key Actionable Recommendations
+
+Based on the comprehensive analysis, key insights, and the three uploaded dashboards Demographics & Credit Worthiness, Employment, Income & Loan Characteristics, and Payment History & Risk Score. The following are clear, actionable recommendations. These are directly drawn from the visual insights and are intended to guide stakeholders in making informed, data-driven decisions for improved loan management and customer targeting.
+
+- 1. Age Distribution of Loan Applicants
+This age group often includes individuals starting families, buying homes, or advancing careers. Create tailored loan products like home improvement, education, or business startup loans. Pair these with user-friendly apps or chatbots to attract digital-savvy borrowers.
+
+- 2. Income Distribution of Loan Applicants
+Low-income borrowers face higher risks but still represent a large market. Consider micro-loans with low-interest rates, possibly backed by community groups, employers, or NGOs. Build credit score improvements into these loans as incentives.
+
+- 3. Education Level Distribution
+This shows applicants are likely to understand financial terms. Offer educational resources on borrowing and targeted financial literacy campaigns through partnerships with schools or local communities to build stronger borrower profiles.
+
+- 4. Credit Utilization Distribution
+Low utilization indicates responsible credit behavior. Consider rewarding these applicants with faster approvals, higher limits, or lower interest rates, reinforcing good habits and building long-term loyalty.
+
+- 5. Credit Utilization vs. Loan Approval
+Since low utilization correlates with better financial discipline, embed this metric deeply into your risk model. Flag high-utilization applicants for manual review or offer them smaller initial loans with the option to scale up.
+
+- 6. Employment Status Distribution
+Traditional credit scoring may penalize self-employed individuals due to irregular income. Incorporate alternative data (like mobile wallet usage, bank transactions, or utility bills) to validate financial stability for this segment.
+
+- 7. Employment Status vs. Loan Approval
+Self-employed applicants could be more entrepreneurial or financially active. Offer custom products like business micro-loans or tax season financing tailored to self-employed needs.
+
+- 8. Income vs. Loan Approval
+Medium-income earners may carry more debt or lack strong credit histories. Investigate this segment further use behavioral credit scoring or soft-pull credit evaluations to avoid missing quality borrowers due to rigid criteria.
+
+- 9. Loan Amount Distribution
+There’s a strong market for quick-access microloans. Build a digital lending platform with automated credit checks, making it easy to apply for small loans and get instant disbursement.
+
+- 10. Loan Amount vs. Loan Approval
+Large loans come with higher risk. Consider tiered lending where borrowers graduate to higher limits after repaying smaller loans successfully — this builds trust while minimizing risk.
+
+- 11. Loan Duration vs. Loan Approval
+This duration balances repayment flexibility and risk. Standardize 3-month terms as the default loan product, and offer extended terms only to borrowers who show solid repayment behavior over time.
+
+- 12. Payment History Distribution
+Instead of rejecting these applicants outright, create a “credit repair” product that encourages consistent, small repayments to rebuild trust. Use gamification (badges, progress bars) to motivate on-time payments.
+
+- 13. Payment History vs. Loan Approval
+Introduce a loyalty program for good payers — this could include better interest rates, larger loan amounts, or even cashback incentives. For those with poor history, allow co-signers or require smaller initial loans.
+
+## Conclusion
+This analysis provides a data-driven foundation to improve credit decisioning strategies. By aligning policies with borrower profiles, lenders can minimize risk while expanding access to responsible applicants.
+
+Thank you for taking the time to read my analysis! I truly appreciate your interest and support. If you’d like to stay connected and explore more insights or collaborate, feel free to connect with me on my Linkedin , X. Your engagement means a lot, and I look forward to sharing more valuable content with you
+
+
+
+
+
 
   
