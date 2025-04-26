@@ -1,5 +1,8 @@
 # Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions
 Transforming borrower data into actionable insights to help financial institutions minimize default risk and make smarter lending choices
+
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Free%20Vector%20_%20Risk%20management%20concept%20illustration.jpeg)
+
 ## Table Of Content
  - [Introduction](#Introduction)
  - [ASK](#ASK)
