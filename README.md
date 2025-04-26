@@ -8,7 +8,7 @@ Transforming borrower data into actionable insights to help financial institutio
 ## Introduction
 Assessing credit risk has always been a critical task for financial institutions, yet it remains a complex challenge. With the increasing availability of applicant data, there's a growing opportunity to move beyond traditional methods and adopt more intelligent, data-driven approaches. In this analysis, I followed the six stages of data analysis Ask, Prepare, Process, Analyze, Share, and Act  to explore a dataset containing various borrower attributes and build a credit risk assessment model designed to support informed lending decisions. From cleaning raw data to identifying patterns and predicting potential defaults, this project showcases how data analytics can unlock smarter, more confident decisions in the world of finance.
 
-## 1. ASK 
+## 1.ASK 
 ### Project Objective
 In the ask phase of the data analytics life cycle, we define the key business questions that will drive our analysis. These questions help ensure that the insights generated are aligned with stakeholder goals in this case, assessing the creditworthiness of loan applicants and improving the decision-making process.
 
