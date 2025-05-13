@@ -168,7 +168,8 @@ A large majority of loan seekers have poor or average credit scores, indicating 
 #### Analysis: 
 The chart indicates that among the loans that were approved, 60% were granted to applicants with a Good credit score. Applicants with a Fair credit score constituted 29% of the approvals, while those with a Low credit score made up the remaining 19%.
 
-#### 💡 Key Insight: There is a clear positive relationship between credit score and loan approval. Applicants with higher credit scores (Good) represent the vast majority of approved loans, strongly suggesting that a better credit history significantly increases the chances of getting a loan approved.
+#### 💡 Key Insight: 
+There is a clear positive relationship between credit score and loan approval. Applicants with higher credit scores (Good) represent the vast majority of approved loans, strongly suggesting that a better credit history significantly increases the chances of getting a loan approved.
 
 - What is the average credit utilization rate among loan applicants?
 
@@ -217,10 +218,10 @@ Although fewer in number, self-employed applicants had the best chance of loan a
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Annual%20Income.PNG)
 
-### Analysis:
+#### Analysis:
 The data shows that the average income of loan applicants is approximately $59,161.
 
-### 💡 Key Insight:
+#### 💡 Key Insight:
 Most applicants have an income around $59,161, suggesting a middle-income customer base. This income level can influence the types of loan products offered, as well as risk assessments during loan approvals.
 
 
@@ -303,10 +304,10 @@ There’s a clear positive relationship between strong payment history and loan 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Debt%20payment.PNG)
 
 
-### Analysis:
+#### Analysis:
 The data reveals that the average monthly debt payment among loan applicants is approximately $454.
 
-### 💡 Key Insight:
+#### 💡 Key Insight:
 An average debt payment of $454 suggests that most applicants carry a moderate monthly financial obligation, which lenders can consider when assessing repayment capacity and loan affordability.
 
 - How does monthly debt payment relate to loan approval?
@@ -314,10 +315,10 @@ An average debt payment of $454 suggests that most applicants carry a moderate m
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Month%20DBT.PNG)
 
 
-### Analysis: 
+#### Analysis: 
 The chart shows that 45% of approved loans were granted to Low Debt Borrowers (monthly debt ratio of 0.25). Medium Debt Borrowers (ratio of 0.17) accounted for 31% of approvals, while High Debt Borrowers (ratio of 0.13) made up 24% of the approved loans.
 
-### 💡 Key Insight: 
+#### 💡 Key Insight: 
 Loan approval likelihood decreases as monthly debt levels increase. Applicants with lower monthly debt obligations are significantly more likely to be approved, highlighting that lenders favor borrowers who demonstrate better debt management.
 
 
@@ -328,10 +329,10 @@ Loan approval likelihood decreases as monthly debt levels increase. Applicants w
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20score%20app.PNG)
 
 
-### Analysis: 
+#### Analysis: 
 The chart shows that the majority of loan applicants have a Moderate Risk Score (9,345 applicants), followed by those with a Low Risk Score (7,594 applicants). Applicants with a Very Low Risk Score total 1,797, while those with a High Risk Score and Very High Risk Score are significantly fewer, at 809 and 455 respectively.
 
-### 💡 Key Insight: 
+####💡 Key Insight: 
 Most loan applicants fall into the moderate-to-low risk categories, suggesting that the applicant pool generally maintains a manageable level of financial risk, which is favorable for loan approvals.
 
 - How does risk score relate to loan approval?
@@ -339,10 +340,10 @@ Most loan applicants fall into the moderate-to-low risk categories, suggesting t
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20Score%20Dis.PNG)
 
 
-### Analysis: 
+#### Analysis: 
 The chart shows that 44% of approved loans were given to applicants with a Very Low Risk Score, followed closely by 42% to those with a Moderate Risk Score. Applicants with a Low Risk Score made up 14% of the approved loans. Meanwhile, applicants with a High Risk Score and Very High Risk Score contributed minimally to loan approvals.
 
-### 💡 Key Insight: 
+#### 💡 Key Insight: 
 There is a strong negative relationship between risk score and loan approval. Applicants with lower risk scores (Very Low and Moderate) are significantly more likely to have their loans approved, highlighting that maintaining a low financial risk profile greatly enhances approval chances.
 
 
@@ -350,10 +351,10 @@ There is a strong negative relationship between risk score and loan approval. Ap
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/avg%20DTI.PNG)
 
-### Analysis: 
+#### Analysis: 
 The average debt-to-income (DTI) ratio among loan applicants is 29%, indicating that, on average, nearly a third of applicants’ income goes toward monthly debt payments.
 
-### 💡 Key Insight:
+#### 💡 Key Insight:
 A 29% DTI suggests a moderate debt burden among applicants. While generally considered acceptable by many lenders, reducing this ratio could further improve applicants’ chances of loan approval and financial stability.
 
 
@@ -361,10 +362,10 @@ A 29% DTI suggests a moderate debt burden among applicants. While generally cons
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/DTI.PNG)
 
-### Analysis:
+#### Analysis:
 The chart shows that the Debt to Income Approval Rate is fairly consistent across Low Risk, Moderate Risk, and Very High Risk categories (each around 0.24), while High Risk applicants have a slightly lower approval rate (0.23). This suggests that debt-to-income alone does not create a strong difference in approval rates across risk levels, except for a slight dip among High Risk applicants.
 
-### 💡 Key Insight:
+#### 💡 Key Insight:
 There is a slight negative relationship between higher risk scores and loan approval, but overall, the approval rates remain relatively stable across risk categories. While High Risk applicants experience marginally lower approval rates, applicants classified as Low Risk, Moderate Risk, and even Very High Risk maintain similar chances. This indicates that lenders may weigh other factors beyond just debt-to-income risk when approving loans.
 
 
