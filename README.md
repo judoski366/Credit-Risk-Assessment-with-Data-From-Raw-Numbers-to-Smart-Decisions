@@ -106,6 +106,21 @@ This analysis aims to use applicant data such as income, employment status, cred
 
 - What is the age distribution of loan applicants?
 
+```sql
+with Credit as
+(
+SELECT age, case
+    when age between 18 and 30 then 'Youth'
+    when age between 31 and 60 then 'Adult'
+    else 'Elderly'
+   end as Age_Label
+FROM Loan)
+
+SELECT Age_Label, count(age) Age_Distribution
+FROM Credit
+GROUP BY Age_Label;
+```
+
   ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Age.PNG)
 
 #### Analysis: 
@@ -118,6 +133,25 @@ This analysis aims to use applicant data such as income, employment status, cred
 
   - What is the income distribution of loan applicants?
 
+```sql
+with Credit2 as
+(
+SELECT 
+    AnnualIncome,
+    CASE 
+        WHEN AnnualIncome BETWEEN 15000 AND 60000 THEN 'Low Income'
+        WHEN AnnualIncome BETWEEN 60001 AND 150000 THEN 'Medium Income'
+        ELSE 'High Income'
+    END AS IncomeCategory
+FROM 
+    Loan)
+
+SELECT IncomeCategory, count(AnnualIncome) Income_distr
+FROM credit2
+GROUP BY IncomeCategory;
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income.PNG)
 
 #### Analysis: 
@@ -129,6 +163,16 @@ The majority of people seeking loans are from lower-income brackets. This sugges
 
 - What is the education level distribution of loan applicants?
 
+```sql
+
+SELECT educationlevel, count(*) edu_lvl_dist
+FROM 
+    Loan
+GROUP BY EducationLevel
+ORDER BY edu_lvl_dist desc;
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Education.PNG)
 
 #### Analysis: 
@@ -137,8 +181,14 @@ The largest group of loan applicants hold a Bachelor’s degree (6,054), closely
 #### 💡 Key Insight:
 Most loan applicants have mid-level education (Bachelor’s or High School), suggesting that individuals in this group may be at a life or career stage where financial support is more frequently needed.
 
-
 - What is the marital status distribution of loan applicants?
+
+```sql
+SELECT MaritalStatus, count(*) Marital_dist
+FROM 
+    Loan
+GROUP BY MaritalStatus;
+```
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Marital%20Status.PNG)
 
@@ -153,6 +203,22 @@ The majority of loan applicants are married, which may indicate higher financial
 
 - What is the distribution of credit scores among loan applicants?
 
+```sql
+with credit3 as
+(
+SELECT CreditScore, case
+      when CreditScore between 343 and 579 then 'Low credit score'
+      when CreditScore between 580 and 679 then 'Fair credit score'
+      else 'Good credit score'
+     end as CreditScoreLabel
+FROM Loan)
+
+SELECT CreditScoreLabel, count(*) CreditScore_dist
+FROM credit3
+GROUP BY CreditScoreLabel;
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20score.PNG)
 
 #### Analysis: 
@@ -162,6 +228,30 @@ Most loan applicants have a Low Credit Score, with 10,201 applications. This is 
 A large majority of loan seekers have poor or average credit scores, indicating higher credit risk. This could suggest that individuals with stronger credit profiles may have access to alternative financing or may be more cautious about taking loans.
 
 - How does credit score relate to loan approval?
+
+```sql
+with credit4 as
+(
+SELECT CreditScore, LoanApproved, case
+      when CreditScore between 343 and 579 then 'Low credit score'
+      when CreditScore between 580 and 679 then 'Fair credit score'
+      else 'Good credit score'
+     end as CreditScoreLabel
+FROM Loan)
+
+SELECT 
+    CreditScoreLabel,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+    credit4
+GROUP BY 
+    CreditScoreLabel
+ORDER BY 
+    CreditScoreLabel;
+
+```
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20Score%20per.PNG)
 
@@ -173,6 +263,27 @@ There is a clear positive relationship between credit score and loan approval. A
 
 - What is the average credit utilization rate among loan applicants?
 
+```sql
+
+SELECT cast(avg([CreditCardUtilizationRate]) as  decimal(8,2)) AvgcreditCard
+FROM Loan
+
+--- What is the distribution of credit utilization rate among loan applicants?
+WITH Credit5 AS
+(
+SELECT [CreditCardUtilizationRate], case
+      when [CreditCardUtilizationRate] < 0.3 then 'Low credit utilization'
+      when [CreditCardUtilizationRate] between 0.3 and 0.5 then 'Moderate credit utilization'
+      else 'High credit utilization'
+     end as CreditUtilizationRateLabel
+FROM Loan)
+
+SELECT CreditUtilizationRateLabel, count([CreditCardUtilizationRate]) AS Total_Credit_UtilizeRate
+FROM credit5
+GROUP BY CreditUtilizationRateLabel;
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20creditcard.PNG)
 
 #### Analysis: The majority of loan applicants (11,324) have Low credit utilization, indicating they use a small portion of their available credit. Moderate credit utilization follows with 6,586 applicants. Only 2,090 applicants fall into the High credit utilization category.
@@ -182,6 +293,31 @@ Most applicants maintain low credit usage, which may reflect good credit managem
 
 - How does credit utilization rate relate to loan approval?
 
+```sql
+WITH credit6 AS
+(
+SELECT [CreditCardUtilizationRate], LoanApproved,
+      case
+      when [CreditCardUtilizationRate] < 0.3 then 'Low credit utilization'
+      when [CreditCardUtilizationRate] between 0.3 and 0.5 then 'Moderate credit utilization'
+      else 'High credit utilization'
+     end as CreditUtilizationRateLabel
+FROM Loan)
+
+
+SELECT 
+    CreditUtilizationRateLabel,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+    credit6
+GROUP BY 
+    CreditUtilizationRateLabel
+ORDER BY 
+    CreditUtilizationRateLabel;
+
+```
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Credit%20Score%20%25.PNG)
 
 
@@ -195,6 +331,14 @@ Applicants with low credit utilization are slightly more likely to be approved f
 
 - What is the employment status distribution of loan applicants?
 
+```sql
+select EmploymentStatus, count(*) Empolyement_Distribution
+FROM 
+    Loan
+group by EmploymentStatus;
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Employment%20S.PNG)
 
 #### Analysis: 
@@ -204,6 +348,21 @@ The vast majority of applicants are Employed (17,036). Self-employed individuals
 Most loan applicants are actively employed, which could indicate a higher likelihood of income stability a key factor lenders consider during the loan approval process.
 
 - How does employment status relate to loan approval?
+
+```SQL
+SELECT 
+    EmploymentStatus,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    Cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+    Loan
+GROUP BY 
+    EmploymentStatus
+ORDER BY 
+    EmploymentStatus;
+
+```
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Empolyment%20S%20Dis.PNG)
 
@@ -216,6 +375,11 @@ Although fewer in number, self-employed applicants had the best chance of loan a
 
 - What is the average income of loan applicants?
 
+```sql
+SELECT cast(avg(AnnualIncome) as decimal(8,2)) Income_distr
+FROM Loan
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Annual%20Income.PNG)
 
 #### Analysis:
@@ -226,6 +390,33 @@ Most applicants have an income around $59,161, suggesting a middle-income custom
 
 
 - How does income relate to loan approval?
+
+```sql
+with Credit7 as 
+(
+SELECT 
+    AnnualIncome,LoanApproved,
+    CASE 
+        WHEN AnnualIncome BETWEEN 15000 AND 60000 THEN 'Low Income'
+        WHEN AnnualIncome BETWEEN 60001 AND 150000 THEN 'Medium Income'
+        ELSE 'High Income'
+    END AS IncomeCategory
+FROM 
+    Loan)
+
+SELECT 
+    IncomeCategory,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    Cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+    Credit7
+GROUP BY 
+    IncomeCategory
+ORDER BY 
+    IncomeCategory;
+
+```
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income%20Relate.PNG)
 
@@ -244,6 +435,27 @@ Although medium-income earners made up a large share of applicants, their loan a
 
 - What is the distribution of loan amounts among loan applicants?
 
+```sql
+with LoanCategory as 
+(
+SELECT 
+    LoanAmount,
+    CASE 
+        WHEN LoanAmount BETWEEN 3674 AND 50000 THEN 'Small Loans'
+        WHEN LoanAmount BETWEEN 50001 AND 120000 THEN 'Medium Loans'
+        ELSE 'High Loans'
+    END AS LoanAmountCategory
+FROM 
+    Loan)
+
+SELECT 
+   LoanAmountCategory, Count(*) AS Loan_Amount_Distribution
+   From LoanCategory
+   Group By LoanAmountCategory
+
+```
+
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Income%20Cat%20Approve.PNG)
 
 #### Analysis:
@@ -255,6 +467,36 @@ Most applicants are requesting small loan amounts, likely because they’re easi
 
 - How does loan amount relate to loan approval?
 
+```sql
+
+with LoanCategory As 
+(
+SELECT 
+    LoanAmount,LoanApproved,
+    CASE 
+        WHEN LoanAmount BETWEEN 3674 AND 50000 THEN 'Small Loans'
+        WHEN LoanAmount BETWEEN 50001 AND 120000 THEN 'Medium Loans'
+        ELSE 'High Loans'
+    END AS LoanAmountCategory
+FROM 
+    Loan)
+
+SELECT 
+    LoanAmountCategory,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    Cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+
+FROM LoanCategory
+    
+GROUP BY 
+    LoanAmountCategory
+ORDER BY 
+    LoanAmountCategory;
+
+```
+
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Loan%20Approve%20R.PNG)
 
 #### Analysis: 
@@ -265,6 +507,35 @@ Applicants requesting smaller loan amounts are more likely to get approved, like
 
 
 - How does loan duration relate to loan approval?
+
+```sql
+
+WITH LoanDuration_days AS
+(
+SELECT 
+    LoanDuration, LoanApproved,
+    CASE 
+        WHEN LoanDuration BETWEEN 1 AND 30 THEN 'One Month'
+        WHEN LoanDuration BETWEEN 31 AND 90 THEN 'Three Months'
+        ELSE 'Six Months'
+    END AS LoanDuration_days
+FROM 
+    Loan)
+ 
+SELECT 
+    LoanDuration_days,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    Cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+
+FROM LoanDuration_days
+    
+GROUP BY 
+    LoanDuration_days
+ORDER BY 
+    LoanDuration_days;
+
+```
 
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Duration%20Of%20Loan.PNG)
 
@@ -279,6 +550,26 @@ Short-term (1-month) loans are also commonly approved, while 6-month loans have 
 
 - What is the distribution of payment history among loan applicants?
 
+```sql
+WITH Payment_History AS 
+(
+SELECT 
+    PaymentHistory,
+    CASE 
+        WHEN PaymentHistory BETWEEN 8 AND 19 THEN 'Poor Payment History'
+        WHEN PaymentHistory BETWEEN 20 AND 32 THEN 'Fair Payment History'
+        ELSE 'Good Payment History'
+    END AS Payment_History
+FROM 
+    Loan)
+ 
+SELECT 
+   Payment_History, Count(*) AS Number_Of_PaymentHistory
+   From Payment_History
+   Group By Payment_History
+
+```
+
 ![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Payment%20Dis.PNG)
 
 #### Analysis: 
@@ -289,6 +580,36 @@ Most applicants fall into the Fair or Poor categories, which may indicate broade
 
 
 - How does payment history relate to loan approval?
+
+```sql
+with Payment_HIstory as 
+(
+SELECT 
+    LoanApproved,
+   PaymentHistory,
+    CASE 
+        WHEN PaymentHistory BETWEEN 8 AND 19 THEN 'Poor Payment History'
+        WHEN PaymentHistory BETWEEN 20 AND 32 THEN 'Fair Payment History'
+        ELSE 'Good Payment History'
+    END AS Payment_History
+FROM 
+    Loan)
+    
+ 
+SELECT 
+    Payment_HIstory,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    Cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+
+FROM Payment_HIstory
+    
+GROUP BY 
+    Payment_HIstory
+ORDER BY 
+    Payment_HIstory;
+
+```
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Pament%20History.PNG)
 
@@ -301,8 +622,12 @@ There’s a clear positive relationship between strong payment history and loan 
 
 - What is the average monthly debt payment among loan applicants?
 
-![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Debt%20payment.PNG)
+```sql
+select cast(avg([MonthlyDebtPayments]) as decimal(8,2)) avg_MonthlyDebt_Payment
+from Loan
+```
 
+![Image Alt Text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Avg%20Debt%20payment.PNG)
 
 #### Analysis:
 The data reveals that the average monthly debt payment among loan applicants is approximately $454.
@@ -311,6 +636,30 @@ The data reveals that the average monthly debt payment among loan applicants is 
 An average debt payment of $454 suggests that most applicants carry a moderate monthly financial obligation, which lenders can consider when assessing repayment capacity and loan affordability.
 
 - How does monthly debt payment relate to loan approval?
+
+```sql
+with Monthly_Debt_Borrower as
+(
+select MonthlyDebtPayments, LoanApproved, case
+      when MonthlyDebtPayments between 50 and 800 then 'Low Debt borrower'
+      when MonthlyDebtPayments between 801 and 1800 then 'Medium Debt Borrower'
+      else 'High Debt Borrower'
+     end as Monthly_debt_Borrower
+from Loan)
+
+SELECT 
+    Monthly_debt_Borrower,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+    Monthly_debt_Borrower
+GROUP BY 
+    Monthly_debt_Borrower
+ORDER BY 
+    Monthly_debt_Borrower;
+
+```
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Month%20DBT.PNG)
 
@@ -326,6 +675,27 @@ Loan approval likelihood decreases as monthly debt levels increase. Applicants w
 
 - What is the distribution of risk scores among loan applicants?
 
+```sql
+with Risk_Score as 
+(
+SELECT 
+    RiskScore,
+    CASE 
+        WHEN RiskScore BETWEEN 28 AND 39 THEN 'Very Low Risk Score'
+        WHEN RiskScore BETWEEN 40 AND 51 THEN 'Low Risk Score'
+        WHEN RiskScore BETWEEN 52 AND 63 THEN 'Moderate Risk Score'
+  WHEN RiskScore BETWEEN 64 AND 75 THEN 'High Risk Score'
+  ELSE 'Very High Risk Score'
+    END AS Risk_Score
+FROM 
+    Loan)
+ 
+SELECT 
+   Risk_Score, Count(*) AS Riskscore_Distribution
+   From Risk_Score
+   Group By Risk_Score;
+```
+
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20score%20app.PNG)
 
 
@@ -336,6 +706,34 @@ The chart shows that the majority of loan applicants have a Moderate Risk Score 
 Most loan applicants fall into the moderate-to-low risk categories, suggesting that the applicant pool generally maintains a manageable level of financial risk, which is favorable for loan approvals.
 
 - How does risk score relate to loan approval?
+
+```sql
+with Risk_Score as 
+(
+SELECT 
+    RiskScore, LoanApproved,
+    CASE 
+        WHEN RiskScore BETWEEN 28 AND 39 THEN 'Very Low Risk Score'
+        WHEN RiskScore BETWEEN 40 AND 51 THEN 'Low Risk Score'
+        WHEN RiskScore BETWEEN 52 AND 63 THEN 'Moderate Risk Score'
+  WHEN RiskScore BETWEEN 64 AND 75 THEN 'High Risk Score'
+  ELSE 'Very High Risk Score'
+    END AS Risk_Score
+FROM 
+    Loan)
+
+SELECT 
+    Risk_Score,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+   Risk_Score
+GROUP BY 
+    Risk_Score
+ORDER BY 
+    Risk_Score;
+```
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/Risk%20Score%20Dis.PNG)
 
@@ -349,6 +747,11 @@ There is a strong negative relationship between risk score and loan approval. Ap
 
 - What is the average debt-to-income ratio among loan applicants?
 
+```sql
+SELECT AVG(DebtToIncomeRatio) AS Debt_Income_Ratio
+FROM Loan
+```
+
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/avg%20DTI.PNG)
 
 #### Analysis: 
@@ -359,6 +762,34 @@ A 29% DTI suggests a moderate debt burden among applicants. While generally cons
 
 
 - How does debt-to-income ratio relate to loan approval?
+
+
+```sql
+with debt_income_ratio as 
+(
+SELECT 
+    DebtToIncomeRatio, LoanApproved,
+    CASE 
+        WHEN DebtToIncomeRatio BETWEEN 0.00 AND 0.20 THEN 'Low Risk'
+        WHEN DebtToIncomeRatio BETWEEN 0.21 AND 0.40 THEN 'Moderate Risk'
+        WHEN DebtToIncomeRatio BETWEEN 0.41 AND 0.60 THEN 'High Risk'
+  ELSE 'Very High Risk'
+    END AS debt_income_ratio
+FROM 
+    Loan)
+
+SELECT 
+    debt_income_ratio,
+    COUNT(*) AS NumberOfLoans,
+    SUM(CASE WHEN LoanApproved = 1 THEN 1 ELSE 0 END) AS ApprovedLoans,
+    cast(AVG(CASE WHEN LoanApproved = 1 THEN 1.0 ELSE 0 END) as decimal(8,2)) AS ApprovalRate
+FROM 
+   debt_income_ratio
+GROUP BY 
+    debt_income_ratio
+ORDER BY 
+    debt_income_ratio;
+```
 
 ![image alt text](https://github.com/judoski366/Credit-Risk-Assessment-with-Data-From-Raw-Numbers-to-Smart-Decisions/blob/main/DTI.PNG)
 
